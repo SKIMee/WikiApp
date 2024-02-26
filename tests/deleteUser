@@ -1,0 +1,24 @@
+
+public function testDeleteUser()
+{
+    // les dépendances
+    $view = $this->createMock(Twig::class);
+    $db = $this->createMock(mysqli::class);
+    $request = $this->createMock(Request::class);
+    $response = $this->createMock(Response::class);
+
+    // simulation utilisateur admin
+    $_SESSION['role'] = 'admin';
+
+    //  la redirection
+    $responseMock->expects($this->once())
+                 ->method('withHeader')
+                 ->with('Location', '/dashboard')
+                 ->willReturn($responseMock);
+
+    // instance du contrôleur avec les mocks
+    $controller = new UserController($view, $db);
+
+    // Appeler la méthode deleteUser
+    $controller->deleteUser($request, $response, ['username' => 'testuser', 'confirmation' => 'y']);
+}

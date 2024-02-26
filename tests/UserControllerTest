@@ -1,0 +1,66 @@
+class UserControllerTest extends TestCase
+{
+    private $twigMock;
+    private $mysqliMock;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->twigMock = $this->createMock(Twig::class);
+        $this->mysqliMock = $this->createMock(mysqli::class);
+    }
+
+    public function testAddUserAsAdmin()
+    {
+        // Simuler un environnement d'admin
+        $_SESSION['role'] = 'admin';
+
+        // Mock de la réponse et de la requête
+        $responseMock = $this->createMock(Response::class);
+        $requestMock = $this->createMock(Request::class);
+
+        // Configurer le comportement attendu de la redirection
+        $responseMock->method('withHeader')->willReturnSelf();
+        $responseMock->expects($this->once())
+                     ->method('withStatus')
+                     ->with(302)
+                     ->willReturn($responseMock);
+
+        // Créer une instance du UserController
+        $userController = new UserController($this->twigMock, $this->mysqliMock);
+
+        // Exécuter la méthode addUser
+        $result = $userController->addUser($requestMock, $responseMock, []);
+
+        // Assertions
+        $this->assertEquals(302, $result->getStatusCode()); // Vérifier le code de statut
+        // Ajouter d'autres assertions si nécessaire
+    }
+
+    public function testAddUserAsNonAdmin()
+    {
+        // Simuler un environnement non-admin
+        $_SESSION['role'] = 'user'; // ou simplement ne pas définir 'role'
+
+        // Mock de la réponse et de la requête
+        $responseMock = $this->createMock(Response::class);
+        $requestMock = $this->createMock(Request::class);
+
+        // Configurer le comportement attendu de la redirection
+        $responseMock->method('withHeader')->willReturnSelf();
+        $responseMock->expects($this->once())
+                     ->method('withStatus')
+                     ->with(302)
+                     ->willReturn($responseMock);
+
+        // Créer une instance du UserController
+        $userController = new UserController($this->twigMock, $this->mysqliMock);
+
+        // Exécuter la méthode addUser
+        $result = $userController->addUser($requestMock, $responseMock, []);
+
+        // Assertions
+        $this->assertEquals(302, $result->getStatusCode()); // Vérifier le code de statut
+        // Ajouter d'autres assertions si nécessaire
+    }
+}

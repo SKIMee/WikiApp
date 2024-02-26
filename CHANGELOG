@@ -1,0 +1,39 @@
+# CHANGELOG
+
+## [Unreleased]
+- Features planned for future updates.
+
+## [Version 3.0] - 12/01/2024
+### Added
+- Access to the web page from an online server for global accessibility.
+- Administrator management interface.
+- Enhanced infobox results, including the addition of images.
+- SQL injection protection and brute force attack prevention.
+- Creation of a setup.sh file for ease of deployment.
+- Intuitive interface for system management and monitoring.
+- User statistics.
+- User creation and password definition.
+- User deletion and role modification.
+- More detailed infoboxes with error returns for empty infoboxes.
+- Passwords are hashed using a SHA function.
+- Implementation of load balancing for improved fault tolerance (in progress).
+
+## [Version 2.0] - 17/11/2023
+### Added
+- Comparative display of Wiki pages.
+- Unique search history for each user.
+- Connection and saving of result data on the client side.
+- HTTPS implementation.
+### Changed
+- Improvement of application functionalities, development of redundancy, backup.
+- HTTPS implementation for enhanced security.
+### Fixed
+- Various bugs and performance issues.
+
+## [Version 1.0] - 29/09/2023
+### Added
+- Basic design of the project and minimal functional architecture with a REST API.
+- PHP Server, Web Server, MySQL Database.
+- Setup of a slim framework with multiple routes.
+### Changed
+- Definition of the project design and establishment of a basic architecture.

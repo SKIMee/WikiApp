@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine # Spécifie l'image à utiliser si elle existe déjà.
+    privileged: true
+    ports:
+      - "4443:443"
+    restart: always
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:z
+      - ./app-elclassico:/usr/share/nginx/app-elclassico:z     # Montez tout le dossier app-elclassico
+    networks:
+      - web-app
+
+  php:
+    container_name: php-container
+    build:
+      context: ./php
+      dockerfile: Dockerfile.php
+    privileged: true
+    volumes:
+      - ./app-elclassico:/usr/share/nginx/app-elclassico:z
+    networks:
+      - web-app
+
+  mysql:
+      container_name: mysql-container
+      build:
+        context: ./mysql
+        dockerfile: Dockerfile.mysql
+      volumes:
+      - sae-501-502-elclassico_mysql-data:/var/lib/mysql
+      networks:
+        - web-app
+
+networks:
+  web-app:
+
+
+volumes:
+  sae-501-502-elclassico_mysql-data:
